@@ -1,0 +1,3 @@
+﻿New-ADUser -Name "Oseme Vice" -GivenName "Oseme" -Surname "Vice" -SamAccountName "o.vice" -UserPrincipalName "o.vice@henryofcloud.com" -AccountPassword (Read-Host -AsSecureString "@Cloudcomputing2025") -Enabled $true -DisplayName "Oseme Vice" -Path "OU=Sales,DC=henryofcloud,DC=com"
+New-ADGroup -Name "Marketing" -GroupScope Global -GroupCategory Security -Path "OU=Sales,DC=henryofcloud,DC=com"
+Add-ADGroupMember -Identity "Marketing" -Members "o.vice"
