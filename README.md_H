@@ -1,0 +1,91 @@
+ Project Documentation: PowerShell AD Automation
+
+Overview
+- [Overview](#-overview)
+- [Requirements](#-requirements)
+- [Step 1: Create a New AD User](#-step-1-create-a-new-ad-user)
+- [Step 2: Create a New Security Group](#-step-2-create-a-new-security-group)
+- [Step 3: Add User to the Security Group](#-step-3-add-user-to-the-security-group)
+- [Verify the Setup](#-verify-the-setup)
+- [Summary](#-summary)
+- [Bonus: Getting Started with GitHub](#-bonus-getting-started-with-github)
+- [References](#-references)
+- [Author](#-author)
+This documentation outlines the process and PowerShell commands used to automate common Active Directory tasks:
+
+* Creating a new Active Directory user
+
+* Assigning the user to a specific Organizational Unit (OU)
+
+* Creating a security group
+
+* Adding the user to the security group
+
+This guide is beginner-friendly and ideal for junior sysadmins and anyone who wants to venture automation using PowerShell, Active Directory.
+
+🛠️ Requirements
+
+Windows 10/11 with RSAT (Remote Server Administration Tools) installed
+
+Active Directory module for PowerShell
+
+Appropriate permissions to create users and groups in Active Directory
+
+✅ Import the AD Module
+
+Import-Module ActiveDirectory
+
+🧑‍💼 Step 1: Create a New AD User
+
+$Password = Read-Host "Enter password for the new user" -AsSecureString
+
+New-ADUser `
+  -Name "Oseme Vice" `
+  -GivenName "Oseme" `
+  -Surname "Vice" `
+  -SamAccountName "o.vice" `
+  -UserPrincipalName "o.vice@henryofcloud.com" `
+  -AccountPassword (READ-Host -AsSecureString "@Cloudcomputing2025") `
+  -Enabled $true `
+  -DisplayName "John Doe" `
+  -Path "OU=Sales,DC=henryofcloud,DC=com"
+
+🧱 Step 2: Create a New Security Group
+
+New-ADGroup `
+  -Name "Marketing" `
+  -GroupScope Global `
+  -GroupCategory Security `
+  -Path "OU=Sales,DC=henryofcloud,DC=com"
+
+➕ Step 3: Add User to the Security Group
+
+Add-ADGroupMember `
+  -Identity "Marketing" `
+  **```(-Members "o.vice")**```
+
+🔍 Verify the Setup
+
+Check user details:
+
+Get-ADUser o.vice | Format-List Name,SamAccountName,Enabled
+
+List members of the group:
+
+Get-ADGroupMember Marketing
+
+🌟 Summary
+
+Using PowerShell, we:
+
+Automated user and group management in Active Directory
+
+Reduced manual clicks and improved accuracy
+
+ References
+
+Microsoft Docs: New-ADUser
+
+PowerShell SecureString
+
+GitHub - PowerShell Examples
